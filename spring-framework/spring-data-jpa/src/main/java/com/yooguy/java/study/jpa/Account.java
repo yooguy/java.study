@@ -3,10 +3,8 @@ package com.yooguy.java.study.jpa;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Account
@@ -14,18 +12,26 @@ import javax.persistence.Id;
  * @author jihoon.yoo
  * @since 2020. 03. 09.
  */
-@Entity
 @Getter
 @Setter
+@Entity
 public class Account {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column
     private String password;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created = new Date();
+
+    private String yes;
+
+    @Transient
+    private String no;
 }
