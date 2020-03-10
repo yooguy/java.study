@@ -1,6 +1,5 @@
 package com.yooguy.java.study.jpa;
 
-import com.yooguy.java.study.jpa.post.Comment;
 import com.yooguy.java.study.jpa.post.Post;
 import org.hibernate.Session;
 import org.springframework.boot.ApplicationArguments;
@@ -26,6 +25,7 @@ public class JpaRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+//
 //       Post post = new Post();
 //       post.setTitle("Spring Data JPA 언제 보는가...?");
 //
