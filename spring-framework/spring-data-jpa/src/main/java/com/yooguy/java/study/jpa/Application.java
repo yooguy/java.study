@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.QueryLookupStrategy;
  * @since 2020. 03. 08.
  */
 @SpringBootApplication
+@EnableJpaRepositories(queryLookupStrategy = QueryLookupStrategy.Key.CREATE_IF_NOT_FOUND) // default
 public class Application {
 
     public static void main(String[] args) {

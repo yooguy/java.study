@@ -3,6 +3,7 @@ package com.yooguy.java.study.jpa.post;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Comment
@@ -24,6 +25,10 @@ public class Comment {
 
     private String comment;
 
+    private Integer likeCount;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Post post;
+
+    private Date created;
 }
