@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,5 +40,14 @@ class CommentMyRepositoryTest {
         assertThat(result1).isEqualTo(comment1);
         assertThat(result2).isEqualTo(comment2);
         assertThat(results.size()).isEqualTo(2);
+
+        // when
+        Optional<Comment> commentById = commentMyRepository.findById(100L);
+
+        // then
+        assertThat(commentById).isEmpty();
+
+        // when
+        // commentMyRepository.findById(null); // nonnull
     }
 }
