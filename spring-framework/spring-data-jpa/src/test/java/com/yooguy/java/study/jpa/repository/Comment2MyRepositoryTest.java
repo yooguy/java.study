@@ -21,7 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author jihoon.yoo
  * @since 2020. 03. 11.
  */
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 class Comment2MyRepositoryTest {
 

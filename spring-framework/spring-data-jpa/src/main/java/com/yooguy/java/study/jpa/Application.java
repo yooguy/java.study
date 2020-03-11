@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.QueryLookupStrategy;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * Application
@@ -12,6 +13,7 @@ import org.springframework.data.repository.query.QueryLookupStrategy;
  * @since 2020. 03. 08.
  */
 @SpringBootApplication
+@EnableAsync
 @EnableJpaRepositories(queryLookupStrategy = QueryLookupStrategy.Key.CREATE_IF_NOT_FOUND) // default
 public class Application {
 
