@@ -22,11 +22,20 @@ class PostRepositoryTest {
 
     @Test
     public void crudRepository() {
+        // given
+        Post post = new Post();
+        post.setTitle("hibernate");
+
         // when
-        List<Post> posts = postRepository.findMyPost();
+        postRepository.save(post);
+        List<Post> result1 = postRepository.findMyPost();
 
         // then
-        assertThat(posts).isEmpty();
-        assertThat(postRepository).isNotNull();
+        assertThat(result1.size()).isEqualTo(1);
+
+        // when
+        postRepository.delete(post);
+        List<Post> result2 = postRepository.findMyPost();
+        assertThat(result2.size()).isEqualTo(0);
     }
 }

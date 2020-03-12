@@ -8,7 +8,9 @@ import java.util.List;
  * @author jihoon.yoo
  * @since 2020. 03. 12.
  */
-public interface PostCustomRepository {
+public interface PostCustomRepository<T> {
 
-    List<Post> findMyPost();
+    <T> List<T> findMyPost();
+
+    void delete(T entity);
 }

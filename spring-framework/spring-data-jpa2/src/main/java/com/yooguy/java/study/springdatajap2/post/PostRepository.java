@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author jihoon.yoo
  * @since 2020. 03. 12.
  */
-public interface PostRepository extends JpaRepository<Post, Long>, PostCustomRepository {
+public interface PostRepository extends JpaRepository<Post, Long>, PostCustomRepository<Post> {
 }
