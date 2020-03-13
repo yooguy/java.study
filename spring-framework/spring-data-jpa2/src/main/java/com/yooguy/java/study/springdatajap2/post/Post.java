@@ -1,6 +1,8 @@
 package com.yooguy.java.study.springdatajap2.post;
 
 import lombok.*;
+import org.springframework.data.domain.AbstractAggregateRoot;
+import org.springframework.data.domain.DomainEvents;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +22,7 @@ import javax.persistence.Lob;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Post {
+public class Post extends AbstractAggregateRoot<Post> {
 
     @Id @GeneratedValue
     private Long id;
@@ -29,4 +31,9 @@ public class Post {
 
     @Lob
     private String content;
+
+    public Post publish() {
+        this.registerEvent(new PostPublishedEvent(this));
+        return this;
+    }
 }

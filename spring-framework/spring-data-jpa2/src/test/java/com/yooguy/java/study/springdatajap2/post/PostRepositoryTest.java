@@ -3,6 +3,8 @@ package com.yooguy.java.study.springdatajap2.post;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
@@ -15,10 +17,23 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2020. 03. 12.
  */
 @DataJpaTest
+@Import(PostRepositoryTestConfig.class)
 class PostRepositoryTest {
 
     @Autowired
     PostRepository postRepository;
+
+    @Autowired
+    ApplicationContext applicationContext;
+
+    @Test
+    public void event() {
+        Post post = new Post();
+        post.setTitle("event!!");
+        PostPublishedEvent event = new PostPublishedEvent(post);
+
+        applicationContext.publishEvent(event);
+    }
 
     @Test
     public void crudRepository() {
@@ -30,7 +45,7 @@ class PostRepositoryTest {
         assertThat(postRepository.contains(post)).isFalse();
 
         // when
-        postRepository.save(post);
+        postRepository.save(post.publish());
         List<Post> result1 = postRepository.findMyPost();
 
         // when, then
