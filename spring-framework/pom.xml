@@ -22,6 +22,7 @@
         <module>spring-security</module>
         <module>spring-data-jpa</module>
         <module>spring-data-jpa2</module>
+        <module>spring-querydsl</module>
     </modules>
 
 
