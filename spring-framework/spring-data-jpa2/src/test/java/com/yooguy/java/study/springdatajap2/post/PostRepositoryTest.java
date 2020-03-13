@@ -1,5 +1,6 @@
 package com.yooguy.java.study.springdatajap2.post;
 
+import com.querydsl.core.types.Predicate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -7,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,6 +35,25 @@ class PostRepositoryTest {
         PostPublishedEvent event = new PostPublishedEvent(post);
 
         applicationContext.publishEvent(event);
+    }
+
+    @Test
+    public void crudQueryDsl() {
+        // given
+        Post post = Post.builder()
+                .title("spring data jpa")
+                .content("hibernate, jpa, spring data common, querydsl")
+                .build();
+
+        postRepository.save(post);
+
+        // when
+        QPost qPost = QPost.post;
+        Predicate predicate = qPost.title.containsIgnoreCase("data jpa")
+                .and(qPost.content.startsWith("hibernate"));
+
+        Optional<Post> one = postRepository.findOne(predicate);
+        assertThat(one.get()).isEqualTo(post);
     }
 
     @Test
