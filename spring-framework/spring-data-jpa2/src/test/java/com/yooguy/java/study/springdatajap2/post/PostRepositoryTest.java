@@ -26,9 +26,15 @@ class PostRepositoryTest {
         Post post = new Post();
         post.setTitle("hibernate");
 
+        // when, then
+        assertThat(postRepository.contains(post)).isFalse();
+
         // when
         postRepository.save(post);
         List<Post> result1 = postRepository.findMyPost();
+
+        // when, then
+        assertThat(postRepository.contains(post)).isTrue();
 
         // then
         assertThat(result1.size()).isEqualTo(1);
