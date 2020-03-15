@@ -50,4 +50,58 @@ class ArticleRepositoryTest {
         List<Article> all = articleRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo("hibernate");
     }
+
+    @Test
+    void findByTitleStartsWith() {
+        // given
+        Article article = Article.builder().title("Spring Data Jpa").build();
+        articleRepository.save(article);
+
+        // when
+        List<Article> result = articleRepository.findByTitleStartsWith("Spring");
+
+        // then
+        assertThat(result.get(0).getTitle()).isEqualTo("Spring Data Jpa");
+    }
+
+    @Test
+    void findIdentity() {
+        // given
+        Article article = Article.builder().title("NamedQuery Article.findIdentity").build();
+        articleRepository.save(article);
+
+        // when
+        List<Article> result = articleRepository.findIdentity(1L);
+
+        // then
+        assertThat(result.get(0).getId()).isEqualTo(1L);
+    }
+
+    @Test
+    void findTit() {
+        // given
+        final String title = "NamedQuery Article.findTit";
+        Article article = Article.builder().id(1L).title(title).build();
+        articleRepository.save(article);
+
+        // when
+        List<Article> result = articleRepository.findTit(title);
+
+        // then
+        assertThat(result.get(0).getTitle()).isEqualTo(title);
+    }
+
+    @Test
+    void findByTitle() {
+        // given
+        final String title = "NamedQuery Article.findByTitle";
+        Article article = Article.builder().id(1L).title(title).build();
+        articleRepository.save(article);
+
+        // when
+        List<Article> result = articleRepository.findTit(title);
+
+        // then
+        assertThat(result.get(0).getTitle()).isEqualTo(title);
+    }
 }

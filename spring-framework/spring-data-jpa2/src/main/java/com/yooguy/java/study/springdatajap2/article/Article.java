@@ -19,6 +19,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Article.findIdentity", query = "SELECT a FROM Article AS a WHERE a.id = ?1"),
+        @NamedQuery(name = "Article.findTit", query = "SELECT a FROM Article AS a WHERE a.title = ?1"),
+        @NamedQuery(name = "Article.findByTitle", query = "SELECT a FROM Article AS a WHERE a.title = ?1")
+})
 public class Article {
 
     @Id @GeneratedValue
