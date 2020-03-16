@@ -1,5 +1,6 @@
 package com.yooguy.java.study.springdatajap2.article;
 
+import org.hibernate.annotations.Where;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.domain.JpaSort;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -125,5 +127,22 @@ class ArticleRepositoryTest {
         // then
         result.stream().forEach(item -> System.out.println("item : " + item.toString()));
         assertThat(result.get(0).getTitle()).isEqualTo("jpa aaa");
+    }
+
+    @Test
+    void updateTitle() {
+        // given
+        Article article = Article.builder().title("jpa").build();
+        articleRepository.save(article);
+
+        // when
+        int count = articleRepository.updateTitle("hibernate", article.getId());
+
+        // then
+        assertThat(count).isEqualTo(1);
+
+        // when
+        Optional<Article> byId = articleRepository.findById(article.getId());
+        assertThat(byId.get().getTitle()).isEqualTo("hibernate"); // check @Modifying
     }
 }

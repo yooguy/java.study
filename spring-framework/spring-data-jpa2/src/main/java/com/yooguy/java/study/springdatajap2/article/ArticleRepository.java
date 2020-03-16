@@ -1,7 +1,9 @@
 package com.yooguy.java.study.springdatajap2.article;
 
 import com.yooguy.java.study.springdatajap2.common.MyRepository;
+import org.hibernate.annotations.Where;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -25,4 +27,8 @@ public interface ArticleRepository extends MyRepository<Article, Long> {
 
     @Query("SELECT a FROM #{#entityName} AS a WHERE a.title = :title")
     List<Article> findByTitle(@Param("title") String keyword, Sort sort);
+
+    @Modifying(clearAutomatically = true) //, flushAutomatically = true)
+    @Query("UPDATE #{#entityName} a SET a.title = :title WHERE a.id = :id")
+    int updateTitle(@Param("title") String title, @Param("id") Long id);
 }
